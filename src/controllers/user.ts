@@ -10,6 +10,6 @@ export const addUser = async (ctx: Context, next: () => void) => {
 
 export const login = async (ctx: Context, next: () => void) => {
     const user: UserRequest = ctx.request.body;
-    ctx.state.data = await service.login(user);
+    ctx.state.data = await service.login(ctx,user);
     await next();
 };

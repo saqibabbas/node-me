@@ -9,9 +9,9 @@ const router = new Router({
     prefix: `${config.api.baseURL}/user`,
   });
 
-router.post('/', ctrl.addUser);
+router.post('/signup', ctrl.addUser);
 
-router.post('/login', ctrl.login);
+router.post('/signin', ctrl.login);
 
 const routes = router.routes();
 export default compose([routes]);

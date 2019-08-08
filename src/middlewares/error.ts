@@ -12,7 +12,7 @@ const handler = async (ctx: Context, next: () => void) => {
   try {
     await next();
     if (!ctx.state.data) {
-      throw Boom.notFound('API not found');
+      throw Boom.notFound('Empty response');
     }
   } catch (err) {
     let metaData: IMetaData;

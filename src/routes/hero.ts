@@ -4,18 +4,19 @@ import * as Router from 'koa-router';
 import config from '../../config';
 
 import * as compose from 'koa-compose';
+const authenticate = require('../middlewares/authenticate');
 
 const router = new Router({
-    prefix: `${config.api.baseURL}/hero`,
-  });
+  prefix: `${config.api.baseURL}/hero`,
+});
 
-router.get('/', ctrl.getAll);
+router.get('/', authenticate, ctrl.getAll);
 
-router.post('/', ctrl.addhero);
+router.post('/', authenticate, ctrl.addhero);
 
-router.put('/', ctrl.updatehero);
+router.put('/', authenticate, ctrl.updatehero);
 
-router.delete('/', ctrl.deletehero);
+router.delete('/', authenticate, ctrl.deletehero);
 
 const routes = router.routes();
 export default compose([routes]);

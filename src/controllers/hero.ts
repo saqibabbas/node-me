@@ -15,7 +15,7 @@ export const addhero = async (ctx: Context, next: () => void) => {
 };
 
 export const updatehero = async (ctx: Context, next: () => void) => {
-    const hero: Hero = ctx.request.body;
+    const hero: HeroRequest = ctx.request.body;
     ctx.state.data = await service.update(hero);
     await next();
 };

@@ -2,6 +2,7 @@ import * as repo from '../repositories/hero';
 import { Hero } from '../entities/hero';
 import { HeroRequest } from '../interfaces/hero';
 import * as joi from 'joi';
+import { notFound } from 'boom';
 
 export const getAll = async () => {
     console.info('getall');
@@ -22,17 +23,16 @@ export const update = async (hero: HeroRequest) => {
         id: joi.number().required(),
         name: joi.string().required()
     });
-
-    // get hero
-    const updateHero = new Hero();
-    updateHero.name = hero.name;
-    return repo.update(updateHero);
+    const updateHero = await repo.get(hero.id)[0];
+    if (updateHero) {
+        updateHero.name = hero.name;
+        return repo.update(updateHero);
+    }
 };
 
-export const remove = async (hero: Hero) => {
+export const remove = async (hero: HeroRequest) => {
     await joi.validate(hero, {
         id: joi.number().required()
     });
-
-    return repo.remove(hero);
+    return repo.remove(hero.id);
 };
